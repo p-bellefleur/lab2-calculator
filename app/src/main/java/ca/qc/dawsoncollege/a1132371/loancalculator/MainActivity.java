@@ -30,17 +30,29 @@ public class MainActivity extends AppCompatActivity {
         resultInterest = (TextView) findViewById(R.id.interestResult);
     } //onCreate()
 
-    public void calculate() {
+    public void calculate(View v) {
+        if (validate()) {
+            loanAmount = Double.parseDouble(inputLoan.getText().toString());
+            numberOfYears = Integer.parseInt(inputYears.getText().toString());
+            yearlyInterestRate = Double.parseDouble(inputInterest.getText().toString());
 
+            resultMonthly.setText(Double.toString(getMonthlyPayment()));
+            resultTotal.setText(Double.toString(getTotalCostOfLoan()));
+            resultInterest.setText(Double.toString(getTotalInterest()));
+        } else {
+            resultMonthly.setText(R.string.no_number_error);
+            resultTotal.setText("");
+            resultInterest.setText("");
+        }
     }
 
-    public void clear() {
+    public void clear(View v) {
         inputLoan.setText("");
         inputYears.setText("");
         inputInterest.setText("");
         resultMonthly.setText(R.string.result_hint);
-        resultTotal.setText(R.string.result_hint);
-        resultInterest.setText(R.string.result_hint);
+        resultTotal.setText("");
+        resultInterest.setText("");
     } //clearFields()
 
     private double getMonthlyPayment() {
@@ -71,5 +83,16 @@ public class MainActivity extends AppCompatActivity {
     private double getTotalInterest ()
     {
         return getTotalCostOfLoan () - loanAmount;
+    }
+
+    private boolean validate() {
+        try {
+            loanAmount = Double.parseDouble(inputLoan.getText().toString());
+            numberOfYears = Integer.parseInt(inputYears.getText().toString());
+            yearlyInterestRate = Double.parseDouble(inputInterest.getText().toString());
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }
