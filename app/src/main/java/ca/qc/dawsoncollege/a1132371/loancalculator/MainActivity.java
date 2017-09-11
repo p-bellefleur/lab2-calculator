@@ -10,13 +10,24 @@ public class MainActivity extends AppCompatActivity {
     private double loanAmount;
     private int numberOfYears;
     private double yearlyInterestRate;
+    EditText inputLoan;
+    EditText inputYears;
+    EditText inputInterest;
+    TextView resultMonthly;
+    TextView resultTotal;
+    TextView resultInterest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //
-
+        // get a handle on the text fields
+        inputLoan = (EditText) findViewById(R.id.loanAmount);
+        inputYears = (EditText) findViewById(R.id.numberOfYears);
+        inputInterest = (EditText) findViewById(R.id.yearlyInterestRate);
+        resultMonthly = (TextView) findViewById(R.id.monthlyResult);
+        resultTotal = (TextView) findViewById(R.id.paymentResult);
+        resultInterest = (TextView) findViewById(R.id.interestResult);
     } //onCreate()
 
     public void calculate() {
@@ -24,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clear() {
-
-    }
+        inputLoan.setText("");
+        inputYears.setText("");
+        inputInterest.setText("");
+        resultMonthly.setText(R.string.result_hint);
+        resultTotal.setText(R.string.result_hint);
+        resultInterest.setText(R.string.result_hint);
+    } //clearFields()
 
     private double getMonthlyPayment() {
         double monthlyPayment;
